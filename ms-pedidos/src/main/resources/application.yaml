@@ -6,9 +6,9 @@ spring:
     name: ms-pedidos
 
   r2dbc:
-    url: r2dbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:postgres}?sslMode=${DB_SSL_MODE:disable}
+    url: r2dbc:postgresql://${DB_HOST:db.mnebjpouqtmgemxvzgmk.supabase.co}:${DB_PORT:5432}/${DB_NAME:postgres}?sslMode=${DB_SSL_MODE:require}
     username: ${DB_USER:postgres}
-    password: ${DB_PASSWORD:postgres}
+    password: ${DB_PASSWORD:TU_PASSWORD_DE_SUPABASE}
 
   servicios:
-    productos-url: ${PRODUCTOS_SERVICE_URL: http:localhost}
+    productos-url: ${PRODUCTOS_SERVICE_URL:http://localhost}
