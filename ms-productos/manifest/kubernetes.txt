@@ -1,8 +1,3 @@
-=====================================
- COMANDOS KUBERNETES - MS-PRODUCTOS
- Luis Sanchez - 37
-=====================================
-
 --- 1. INICIAR MINIKUBE ---
 minikube version
 minikube status
