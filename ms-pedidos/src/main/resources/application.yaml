@@ -9,6 +9,10 @@ spring:
     url: r2dbc:postgresql://${DB_HOST:db.mnebjpouqtmgemxvzgmk.supabase.co}:${DB_PORT:5432}/${DB_NAME:postgres}?sslMode=${DB_SSL_MODE:require}
     username: ${DB_USER:postgres}
     password: ${DB_PASSWORD:Luisdevflex3k}
+    pool:
+      enabled: true
+      initial-size: 1
+      max-size: 3
 
   sql:
     init:

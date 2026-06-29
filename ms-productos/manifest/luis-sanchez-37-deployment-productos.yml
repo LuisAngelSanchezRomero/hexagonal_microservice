@@ -5,7 +5,7 @@ metadata:
   name: luis-sanchez-37-deployment-productos
   namespace: luis-sanchez-37-namespace-productos
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: luis-sanchez-37-productos

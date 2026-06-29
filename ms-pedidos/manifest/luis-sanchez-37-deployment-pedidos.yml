@@ -5,7 +5,7 @@ metadata:
   name: luis-sanchez-37-deployment-pedidos
   namespace: luis-sanchez-37-namespace-pedidos
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: luis-sanchez-37-pedidos
