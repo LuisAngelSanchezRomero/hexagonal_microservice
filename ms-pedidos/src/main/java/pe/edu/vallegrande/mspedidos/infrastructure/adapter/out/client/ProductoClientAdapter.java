@@ -12,7 +12,7 @@ public class ProductoClientAdapter implements IProductoClientPort {
 
     private final WebClient webClient;
 
-    public ProductoClientAdapter(@Value("${spring.servicios.productos-url:http://localhost:8081}") String productosUrl) {
+    public ProductoClientAdapter(@Value("${PRODUCTOS_SERVICE_URL:http://localhost:8081}") String productosUrl) {
         this.webClient = WebClient.builder()
                 .baseUrl(productosUrl)
                 .build();
