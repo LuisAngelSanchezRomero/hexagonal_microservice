@@ -1,0 +1,25 @@
+# kubectl apply -f luis-sanchez-37-deployment-pedidos.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: luis-sanchez-37-deployment-pedidos
+  namespace: luis-sanchez-37-namespace-pedidos
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: luis-sanchez-37-pedidos
+  template:
+    metadata:
+      labels:
+        app: luis-sanchez-37-pedidos
+    spec:
+      containers:
+      - name: luis-sanchez-37-container-pedidos
+        image: 50luisangelsanchezromero/luis-sanchez-ms-pedidos:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8082
+        envFrom:
+        - secretRef:
+            name: luis-sanchez-37-secret-pedidos

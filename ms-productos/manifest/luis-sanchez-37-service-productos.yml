@@ -1,0 +1,14 @@
+# kubectl apply -f luis-sanchez-37-service-productos.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: luis-sanchez-37-service-productos
+  namespace: luis-sanchez-37-namespace-productos
+spec:
+  type: NodePort
+  ports:
+  - port: 8081
+    targetPort: 8081
+    nodePort: 30081
+  selector:
+    app: luis-sanchez-37-productos

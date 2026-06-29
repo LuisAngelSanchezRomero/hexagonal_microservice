@@ -1,0 +1,14 @@
+# kubectl apply -f luis-sanchez-37-service-pedidos.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: luis-sanchez-37-service-pedidos
+  namespace: luis-sanchez-37-namespace-pedidos
+spec:
+  type: NodePort
+  ports:
+  - port: 8082
+    targetPort: 8082
+    nodePort: 30082
+  selector:
+    app: luis-sanchez-37-pedidos

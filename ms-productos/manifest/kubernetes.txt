@@ -1,0 +1,40 @@
+=====================================
+ COMANDOS KUBERNETES - MS-PRODUCTOS
+ Luis Sanchez - 37
+=====================================
+
+--- 1. INICIAR MINIKUBE ---
+minikube version
+minikube status
+minikube start
+
+--- 2. BUILD Y PUSH IMAGEN ---
+cd ms-productos
+docker build -t 50luisangelsanchezromero/luis-sanchez-ms-productos:1.0 .
+docker login -u 50luisangelsanchezromero
+docker push 50luisangelsanchezromero/luis-sanchez-ms-productos:1.0
+cd manifest
+
+--- 3. APLICAR MANIFESTS ---
+kubectl apply -f luis-sanchez-37-namespace-productos.yml
+kubectl config set-context --current --namespace=luis-sanchez-37-namespace-productos
+kubectl apply -f luis-sanchez-37-secret-productos.yml
+kubectl apply -f luis-sanchez-37-deployment-productos.yml
+kubectl apply -f luis-sanchez-37-service-productos.yml
+
+--- 4. VERIFICAR ---
+kubectl get all,secrets -n luis-sanchez-37-namespace-productos
+kubectl get pods -n luis-sanchez-37-namespace-productos
+kubectl rollout status deployment/luis-sanchez-37-deployment-productos -n luis-sanchez-37-namespace-productos
+kubectl logs -f deployment/luis-sanchez-37-deployment-productos -n luis-sanchez-37-namespace-productos
+
+--- 5. PORT-FORWARD ---
+kubectl port-forward service/luis-sanchez-37-service-productos 8081:8081 -n luis-sanchez-37-namespace-productos
+
+--- 6. PROBAR ---
+# GET http://localhost:8081/api/productos
+# POST http://localhost:8081/api/productos
+
+--- 7. LIMPIAR ---
+kubectl delete namespace luis-sanchez-37-namespace-productos
+minikube delete

@@ -1,0 +1,97 @@
+{
+  "info": {
+    "name": "ms-pedidos",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8082",
+      "type": "string"
+    },
+    {
+      "key": "pedido_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "producto_id",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "GET - Listar todos los pedidos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/pedidos",
+          "host": ["{{base_url}}"],
+          "path": ["api", "pedidos"]
+        }
+      }
+    },
+    {
+      "name": "GET - Buscar pedido por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/pedidos/{{pedido_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "pedidos", "{{pedido_id}}"]
+        }
+      }
+    },
+    {
+      "name": "POST - Crear pedido (2 unidades producto 1)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"productId\": \"{{producto_id}}\",\n  \"quantity\": 2\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/pedidos",
+          "host": ["{{base_url}}"],
+          "path": ["api", "pedidos"]
+        }
+      }
+    },
+    {
+      "name": "POST - Crear pedido (5 unidades producto 2)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"productId\": \"2\",\n  \"quantity\": 5\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/pedidos",
+          "host": ["{{base_url}}"],
+          "path": ["api", "pedidos"]
+        }
+      }
+    },
+    {
+      "name": "PATCH - Cancelar pedido",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/pedidos/{{pedido_id}}/cancel",
+          "host": ["{{base_url}}"],
+          "path": ["api", "pedidos", "{{pedido_id}}", "cancel"]
+        }
+      }
+    }
+  ]
+}

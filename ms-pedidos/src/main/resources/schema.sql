@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS pedidos (
+    id BIGSERIAL PRIMARY KEY,
+    product_id VARCHAR(255) NOT NULL,
+    quantity INTEGER NOT NULL,
+    total DOUBLE PRECISION,
+    price DOUBLE PRECISION,
+    status VARCHAR(50),
+    fecha TIMESTAMP
+);

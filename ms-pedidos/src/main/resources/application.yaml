@@ -8,7 +8,20 @@ spring:
   r2dbc:
     url: r2dbc:postgresql://${DB_HOST:db.mnebjpouqtmgemxvzgmk.supabase.co}:${DB_PORT:5432}/${DB_NAME:postgres}?sslMode=${DB_SSL_MODE:require}
     username: ${DB_USER:postgres}
-    password: ${DB_PASSWORD:TU_PASSWORD_DE_SUPABASE}
+    password: ${DB_PASSWORD:Luisdevflex3k}
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
 
   servicios:
-    productos-url: ${PRODUCTOS_SERVICE_URL:http://localhost}
+    productos-url: ${PRODUCTOS_SERVICE_URL:http://localhost:8081}

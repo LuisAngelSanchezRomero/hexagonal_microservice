@@ -1,6 +1,5 @@
 package pe.edu.vallegrande.mspedidos.application.service;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,6 +16,7 @@ import java.time.LocalDateTime;
 @Service
 @RequiredArgsConstructor
 public class PedidoService implements IPedidoServicePort {
+
     private final IPedidoRepositoryPort repositoryPort;
     private final IProductoClientPort productoClientPort;
 
@@ -28,21 +28,22 @@ public class PedidoService implements IPedidoServicePort {
     @Override
     public Mono<Pedido> finById(Long id) {
         return repositoryPort.findById(id)
-                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)));
+                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido no encontrado")));
     }
 
     @Override
     public Mono<Pedido> create(Pedido order) {
-        return productoClientPort.findById(order.getId())
-                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido no encontrado")))
+        Long productId = Long.parseLong(order.getProductId());
+        return productoClientPort.findById(productId)
+                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Producto no encontrado")))
                 .flatMap(product -> {
-                    if (product.getStock()< order.getQuantity()){
+                    if (product.getStock() < order.getQuantity()) {
                         return Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST, "Stock insuficiente"));
                     }
-
-                    return productoClientPort.decreaseStock(order.getId(), order.getQuantity())
+                    return productoClientPort.decreaseStock(productId, order.getQuantity())
                             .flatMap(updated -> {
                                 order.setTotal(product.getPrice() * order.getQuantity());
+                                order.setPrice(product.getPrice());
                                 order.setStatus("CONFIRMADO");
                                 order.setFecha(LocalDateTime.now());
                                 return repositoryPort.save(order);
@@ -52,9 +53,11 @@ public class PedidoService implements IPedidoServicePort {
 
     @Override
     public Mono<Pedido> cancel(Long id) {
-        return findById(id)
-                .flatmap(oder -> {
-                    order
-                })
+        return repositoryPort.findById(id)
+                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido no encontrado")))
+                .flatMap(order -> {
+                    order.setStatus("CANCELADO");
+                    return repositoryPort.save(order);
+                });
     }
 }
